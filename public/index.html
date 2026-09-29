@@ -126,20 +126,27 @@
         }
 
         async function initDashboard() {
-            // 已清空測試假資料，準備對接 Supabase 庫
-            const mockData = [];
-            allData = mockData;
-            
-            // TODO: 在這裡加上你的 Supabase 獲取代碼
-            // 比如:
-            // const supabase = window.supabase.createClient('你的_URL', '你的_ANON_KEY');
-            // const { data, error } = await supabase.from('emulsion_tickets').select('*');
-            // if (data) {
-            //     allData = data;
-            // }
+			// 1. 初始化 Supabase 客户端
+			// URL 使用你之前提供的地址
+			const supabaseUrl = 'https://yvtujoueyotncbvdlgyf.supabase.co';
+			// 注意：在这里必须填写你的 Supabase ANON KEY (Public Key)，绝对不要填入 Service Role Key，以免泄露最高权限
+			const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2dHVqb3VleW90bmNidmRsZ3lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNDAxOTQsImV4cCI6MjEwMzgxNjE5NH0.mmo23blJAMclVJ2MgMoGDNQiDuKw1_O3bWC3Mp2hdVU'; 
+			const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-            setQuickFilter('this_year'); 
-        }
+			// 2. 从 emulsion_tickets 表中拉取所有数据
+			const { data, error } = await supabase.from('emulsion_tickets').select('*');
+
+			if (error) {
+				console.error('获取数据报错:', error);
+				allData = [];
+			} else {
+				// 3. 将真实数据赋值给全局变量
+				allData = data || [];
+			}
+
+			// 4. 默认触发过滤并渲染画面
+			setQuickFilter('this_year'); 
+		}
 
         function setQuickFilter(type) {
             const now = new Date();
