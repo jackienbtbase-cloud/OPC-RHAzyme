@@ -1,4 +1,4 @@
-name: Emulsion Jira Sync
+name: OPC RHAzyme Jira Sync
 on:
   schedule:
     - cron: '5 16 * * *'
