@@ -1,7 +1,7 @@
 const supabase = window.supabase.createClient('YOUR_SUPABASE_URL', 'YOUR_ANON_KEY');
 
 async function loadTickets() {
-    const { data, error } = await supabase.from('emulsion_tickets').select('*');
+    const { data, error } = await supabase.from('opc_rhazyme_tickets').select('*');
     if (error) return console.error(error);
     
     const container = document.getElementById('tickets-container');
