@@ -84,7 +84,7 @@ def sync_opc_rhazyme_tickets():
             }
             
             # 写入你刚才在 Supabase 新建的表
-            supabase.table("opc_rhazyme_tickets").upsert(data).execute()
+            supabase.table("opc_rhazyme_tickets").upsert(data, on_conflict="issue_key").execute()
             print(f"Synced Ticket: {key}")
             total_synced += 1
             
